@@ -1,0 +1,51 @@
+--[[ 
+Program: drill4x4
+Owner: Derek
+Created: 12/16/12
+Notes: Mines a 4x4 hole down to the specified
+squares and comes back up for you to retrieve 
+the goods.
+
+TODO: Works only with fueled turtles set to false. 
+I still need to set this to refuel itself etc etc.
+]]
+
+function init()
+	digSquare(50)
+end
+
+function digSquare(depth)
+	-- loop this for whatever the arg is set for
+	for i=1,depth do
+	
+		-- dig a 4x4 square
+		for i=1,4 do
+			if not turtle.detect() then
+				print("there aint nothing in front of me!")
+				turtle.forward()
+				turtle.turnRight()
+			else
+				print("digging!")
+				turtle.dig()
+				turtle.forward()
+				turtle.turnRight()
+			end
+		end
+		
+		if turtle.detectDown() then
+			turtle.digDown()
+			turtle.down()
+		else
+			turtle.down()
+		end
+		
+	end
+	
+	for i=1,depth do
+		turtle.up()
+	end
+	
+end
+
+-- Initialize function
+init()
