@@ -1,0 +1,132 @@
+--[[ 
+mine7x7
+     
+This program will mine a grid with
+a 7x7 spacing.
+
+Place a Torches in slot 16.
+
+Place fuel in slot 1.
+
+Will collect everything mined
+in other slots.
+]]
+
+function kamfuel(slot)
+  if turtle.getFuelLevel() < 7 then
+    turtle.select(1)
+    turtle.refuel()
+    turtle.select(slot)
+  end
+end
+
+function fward(steps)
+  for i=1,steps do
+    turtle.forward()
+  end
+end
+
+function mine21(size)
+  for i=1,size do
+    kamfuel(16)
+    for i=1,7 do
+      if turtle.detect() then
+        turtle.dig()
+      end
+
+      while turtle.forward() ~= true do
+        turtle.dig()
+      end
+
+      if turtle.detectDown() then
+        if i == 7 then
+          if turtle.compareDown() ~= true then
+            turtle.digDown()
+          end
+        else
+          turtle.digDown()
+        end
+      end
+    end
+
+    if (turtle.compareDown() ~= true) then
+      turtle.placeDown()
+    end
+  end
+end
+
+function square(size)
+  for i=1,4 do
+    mine21(size)
+    turtle.turnRight()
+  end
+end
+
+function rows(size)
+  for i=1,(size-1) do
+    local tmp = i%2
+
+    kamfuel(16)
+    fward(7)
+
+    if tmp == 0 then
+      turtle.turnLeft()
+    else 
+      turtle.turnRight()
+    end
+
+    mine21(size)
+
+    if tmp == 0 then
+      turtle.turnRight()
+    else
+      turtle.turnLeft()
+    end
+  end
+  fward(7)
+  if size%2 == 0 then
+    turtle.turnLeft()
+  else
+    turtle.turnRight()
+  end
+end
+
+function columns(size)
+  for i=1,(size-1) do
+    local tmp = i%2
+
+    kamfuel(16)
+    fward(7)
+
+    if tmp == 1 then
+      turtle.turnLeft()
+    else 
+      turtle.turnRight()
+    end
+
+    mine21(size)
+
+    if tmp == 1 then
+      turtle.turnRight()
+    else
+      turtle.turnLeft()
+    end
+  end
+  fward(7)
+  if size%2 == 1 then
+    turtle.turnLeft()
+  else
+    turtle.turnRight()
+  end
+end
+
+local arg = (...)
+if arg ~= nil then
+  local size = tostring(arg)
+  if size ~= nill then
+    turtle.select(16)
+    square(size)
+    rows(size)
+    columns(size)
+  end
+end

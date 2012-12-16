@@ -1,0 +1,46 @@
+--[[ 
+Gravel test.
+]]
+
+function kamfuel(slot)
+  if turtle.getFuelLevel() < 1 then
+    turtle.select(1)
+    turtle.refuel()
+    turtle.select(slot)
+  end
+end
+
+
+function mine21(size)
+  for i=1,size do
+    kamfuel(1)
+    for i=1,7 do
+      while turtle.detect() do
+        turtle.dig()
+      end
+
+      while turtle.forward() ~= true do
+        turtle.dig()
+      end
+
+
+      while turtle.detectDown() do
+        turtle.digDown()
+      end
+    end
+
+    turtle.select(16)
+    if (turtle.compareDown() ~= true) then
+      turtle.placeDown()
+    end
+  end
+end
+
+
+local arg = (...)
+if arg ~= nil then
+  size = tostring(arg)
+  if size ~= nill then
+    mine21(size)
+ end
+end

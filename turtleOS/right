@@ -1,0 +1,17 @@
+--[[
+right
+Turns the turtle to the right
+the specified number of turns.
+]]
+
+local arg = (...)
+if arg ~= nil then
+  local num = tonumber(arg)
+  if (num ~= nil) then
+    for i=1,num do
+      turtle.turnRight()
+    end
+  end
+else
+  turtle.turnRight()
+end
