@@ -13,5 +13,5 @@ if arg ~= nil then
     end
   end
 else
-  turtle.turnleft()
+  turtle.turnLeft()
 end
