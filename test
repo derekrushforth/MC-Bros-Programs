@@ -1,0 +1,16 @@
+--[[ 
+Program: test
+Owner: Derek
+Created: 12/16/12
+Notes: Just a fast way to prototype new functions
+
+]]
+
+function init()
+	
+end
+
+
+
+-- Initialize function
+init()
