@@ -5,3 +5,5 @@ Thay way program authors write the README only once!
 MINE7X7
 Automatic empyting of items mined into chests, avoidance of iridium ore so that you can mine it yourself (this yielding 2 more ore!), communication to a central computer at your base on the status of the mining operation, etc.
 
+DRILL4X4
+Set the turtle to refuel itself when needed
