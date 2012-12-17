@@ -1,0 +1,13 @@
+These programs can be used on computers in the ComputerCraft mod for minecraft.
+They are being designed to make manual mining a thing of the past. They are
+included by default on all new computers created on the mcbros server at
+dplusc.mine.nu:25566.
+
+A startup file is also included to define easy to use aliases for all the
+programs.
+
+back: Sends the turtle backwards the specified number of blocks (will stop if he hits a player, mob, or block)
+forward: sends the turtle forward with the same caveat.
+left: turns the turtle left for specified number of turns (ie, "left 2" will turn him around)
+right: turns the turtle right for the specified number of turns.
+
