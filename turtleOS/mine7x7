@@ -59,78 +59,98 @@ function mine21(size)
   end
 end
 
-function square(size)
-  for i=1,4 do
-    mine21(size)
+function rect(rows,cols)
+  for i=1,2 do
+    mine21(rows)
+    turtle.turnRight()
+    mine21(cols)
     turtle.turnRight()
   end
 end
 
-function rows(size)
-  for i=1,(size-1) do
-    local tmp = i%2
+function makerows(rows,cols)
+  if rows-1 > 0 then
+    for i=1,(rows-1) do
+      local tmp = i%2
 
-    kamfuel(16,7)
+      kamfuel(16,7)
+      fward(7)
+
+      if tmp == 0 then
+        turtle.turnLeft()
+      else 
+        turtle.turnRight()
+      end
+
+      mine21(cols)
+
+      if tmp == 0 then
+        turtle.turnRight()
+      else
+        turtle.turnLeft()
+      end
+    end
     fward(7)
-
-    if tmp == 0 then
+    if rows%2 == 0 then
       turtle.turnLeft()
-    else 
-      turtle.turnRight()
-    end
-
-    mine21(size)
-
-    if tmp == 0 then
-      turtle.turnRight()
     else
-      turtle.turnLeft()
+      turtle.turnRight()
     end
-  end
-  fward(7)
-  if size%2 == 0 then
-    turtle.turnLeft()
-  else
-    turtle.turnRight()
   end
 end
 
-function columns(size)
-  for i=1,(size-1) do
-    local tmp = i%2
+function makecolumns(rows,cols)
+  if cols-1 > 0 then
+    for i=1,(cols-1) do
+      local tmp = i%2
 
-    kamfuel(16,7)
+      kamfuel(16,7)
+      fward(7)
+
+      if tmp == 1 then
+        turtle.turnLeft()
+      else 
+        turtle.turnRight()
+      end
+
+      mine21(rows)
+
+      if tmp == 1 then
+        turtle.turnRight()
+      else
+        turtle.turnLeft()
+      end
+    end
     fward(7)
-
-    if tmp == 1 then
+    if cols%2 == 1 then
       turtle.turnLeft()
-    else 
-      turtle.turnRight()
-    end
-
-    mine21(size)
-
-    if tmp == 1 then
-      turtle.turnRight()
     else
-      turtle.turnLeft()
+      turtle.turnRight()
     end
-  end
-  fward(7)
-  if size%2 == 1 then
-    turtle.turnLeft()
-  else
-    turtle.turnRight()
   end
 end
 
-local arg = (...)
+local arg = {...}
 if arg ~= nil then
-  local size = tonumber(arg)
-  if size ~= nill then
+  local tmp = tonumber(arg[1])
+  
+  if tmp ~= nil then
+    rows = tmp 
+  else
+   rows = 1
+  end
+
+  local tmp = tonumber(arg[2])
+
+  if tmp ~= nil then
+    cols = tmp
+  else
+    cols = 0
+  end
+  if rows ~= nill then
     turtle.select(16)
-    square(size)
-    rows(size)
-    columns(size)
+    rect(rows,cols)
+    makerows(rows,cols)
+    makecolumns(rows,cols)
   end
 end

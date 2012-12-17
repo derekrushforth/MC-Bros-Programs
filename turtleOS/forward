@@ -16,10 +16,10 @@ function kamfuel(slot,blocks)
   end
 end
 
-local arg = (...)
+local arg = {...}
 
 if arg ~= nil then
-  local num = tonumber(arg)
+  local num = tonumber(arg[1])
   if (num ~= nil) then
     kamfuel(16, num)
     for i=1,num do
