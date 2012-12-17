@@ -45,6 +45,9 @@ function digSquare(depth)
 		turtle.up()
 	end
 	
+	turtle.dig()
+	turtle.forward()
+	
 end
 
 -- Initialize function

@@ -7,6 +7,28 @@ Notes: Just a fast way to prototype new functions
 ]]
 
 function init()
+	for i=1,2 do
+		turtle.select(1)
+		
+		if turtle.detectUp() then
+			turtle.digUp()
+			turtle.up()
+			turtle.placeDown()
+		else
+			turtle.up()
+			turtle.placeDown()
+		end
+	end
+	
+	turtle.forward()
+	
+	turtle.down()
+	turtle.turnRight()
+	turtle.turnRight()
+	turtle.turnRight()
+	turtle.select(2)
+	turtle.placeDown()
+	
 	
 end
 
