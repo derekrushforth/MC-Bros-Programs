@@ -4,16 +4,24 @@ Moves the turtle forward the
 the specified amount of blocks.
 ]]
 
-local arg = (...)
+function kamfuel(slot,blocks)
+  local fueling = turtle.getFuelLevel()
 
-turtle.select(1)
-if turtle.getFuelLevel() < 1 then
-  turtle.refuel()
+  if fueling ~= "unlimited" then
+    if fueling < blocks then
+      turtle.select(1)
+      turtle.refuel()
+      turtle.select(slot)
+    end
+  end
 end
+
+local arg = (...)
 
 if arg ~= nil then
   local num = tonumber(arg)
   if (num ~= nil) then
+    kamfuel(16, num)
     for i=1,num do
       turtle.forward()
     end
