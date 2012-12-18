@@ -8,8 +8,15 @@ the goods.
 
 ]]
 
+local arg = {...}
+
 function init()
-	digSquare(50)
+	if arg ~= nil then
+		local depth = tonumber(arg[1])
+		digSquare(depth)
+	else	
+		digSquare(50)
+	end
 end
 
 function digSquare(depth)
