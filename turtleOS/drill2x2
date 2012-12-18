@@ -51,7 +51,7 @@ function digSquare(depth)
 	end
 	
 	-- bring turtle up to surface
-	for i=1,(depth-1) do
+	for i=1,depth do
 		turtle.up()
 	end
 	
