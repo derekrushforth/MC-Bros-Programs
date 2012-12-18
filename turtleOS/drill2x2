@@ -1,8 +1,8 @@
 --[[ 
-Program: drill4x4
+Program: drill2x2
 Owner: Derek
 Created: 12/16/12
-Notes: Mines a 4x4 hole down to the specified
+Notes: Mines a 2x2 hole down to the specified
 squares and comes back up for you to retrieve 
 the goods.
 

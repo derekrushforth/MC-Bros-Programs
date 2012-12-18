@@ -3,5 +3,5 @@ shell.setAlias("f", "forward")
 shell.setAlias("m", "mine7x7")
 shell.setAlias("r", "right")
 shell.setAlias("l", "left")
-shell.setAlias("d", "drill4x4")
+shell.setAlias("d", "drill2x2")
 
