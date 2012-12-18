@@ -1,0 +1,7 @@
+--[[
+mobtrap
+
+This program will turn your turtle into a mobtrap building machine!
+
+Just fill in the turtle with coal in the first slot, ladders in the 
+last 2 slots, and the rest cobblestone!
