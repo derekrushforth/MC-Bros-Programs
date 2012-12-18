@@ -6,9 +6,6 @@ Notes: Mines a 4x4 hole down to the specified
 squares and comes back up for you to retrieve 
 the goods.
 
-TODO: Works only with fueled turtles set to false. 
-I still need to set this to refuel itself etc etc.
-
 ]]
 
 function init()
@@ -16,23 +13,20 @@ function init()
 end
 
 function digSquare(depth)
-	-- loop this for whatever the arg is set for
+
 	for i=1,depth do
 	
 		-- dig a 4x4 square
 		for i=1,4 do
-			if not turtle.detect() then
-				print("there aint nothing in front of me!")
-				turtle.forward()
-				turtle.turnRight()
-			else
-				print("digging!")
+			if turtle.detect() then
 				turtle.dig()
-				turtle.forward()
-				turtle.turnRight()
 			end
+			turtle.digDown()
+			turtle.forward()
+			turtle.turnRight()
 		end
 		
+		-- move turtle down after a square is made
 		if turtle.detectDown() then
 			turtle.digDown()
 			turtle.down()
@@ -40,15 +34,37 @@ function digSquare(depth)
 			turtle.down()
 		end
 		
+		-- Refuel every 5 blocks
+		if i % 5 == 1 then 
+			refuel()
+			print("Refueling");
+		end
+		
+		
 	end
 	
+	-- bring turtle up to surface
 	for i=1,depth do
 		turtle.up()
 	end
 	
-	turtle.dig()
-	turtle.forward()
+	-- move out of the hole
+	for i=1,2 do
+		turtle.dig()
+		turtle.forward()
+	end
 	
+	
+end
+
+function refuel() 
+	local fLevel = turtle.getFuelLevel()
+	
+	if fLevel ~= "unlimited" then
+		turtle.select(1)
+      	turtle.refuel(1)
+	end
+
 end
 
 -- Initialize function
