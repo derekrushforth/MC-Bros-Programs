@@ -11,20 +11,13 @@ the goods.
 local arg = {...}
 
 function init()
+	
 	if arg ~= nil then
-		-- Assign args into vars
 		local depth = tonumber(arg[1])
 		local length = tonumber(arg[2])
 		
-		if length ~= nil then
-			-- If no length only dig one round
-			diqSquare(depth)
-		else
-			-- If length then keep digging till it's done
-			for i=1,length do
-				digSquare(depth)
-			end
-			
+		for i=1,length do
+			digSquare(depth)
 		end
 		
 	else	
