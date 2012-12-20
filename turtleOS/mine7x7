@@ -45,7 +45,7 @@ function kamdig(slot)
   turtle.select(slot)
 end
 
-function kamdigdown(slot)
+function kamdigDown(slot)
   turtle.select(2)
   if turtle.compareDown() then
     turtle.drop()
