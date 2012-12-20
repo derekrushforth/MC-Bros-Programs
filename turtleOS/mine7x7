@@ -15,13 +15,13 @@ in other slots.
 function kamfuel(slot,blocks)
   local fueling = turtle.getFuelLevel()
 
-  if fueling ~= "unlimited" then
+--  if fueling ~= "unlimited" then
     if fueling < blocks then
       turtle.select(1)
       turtle.refuel()
       turtle.select(slot)
     end
-  end
+--  end
 end
 
 function fward(steps)
