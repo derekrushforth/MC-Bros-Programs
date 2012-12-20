@@ -12,16 +12,19 @@ Will collect everything mined
 in other slots.
 ]]
 
+
+
+
 function kamfuel(slot,blocks)
   local fueling = turtle.getFuelLevel()
 
---  if fueling ~= "unlimited" then
+  if fueling ~= "unlimited" then
     if fueling < blocks then
       turtle.select(1)
       turtle.refuel()
       turtle.select(slot)
     end
---  end
+  end
 end
 
 function fward(steps)
@@ -31,7 +34,7 @@ function fward(steps)
 end
 
 function kamdig(slot)
-  turtle.select(2)
+--  turtle.select(2)
   if turtle.compare() then
     turtle.drop()
   end
@@ -42,11 +45,11 @@ function kamdig(slot)
   end
   ]]
   turtle.dig()
-  turtle.select(slot)
+--  turtle.select(slot)
 end
 
 function kamdigDown(slot)
-  turtle.select(2)
+--  turtle.select(2)
   if turtle.compareDown() then
     turtle.drop()
   end
@@ -57,19 +60,20 @@ function kamdigDown(slot)
   end
   ]]
   turtle.digDown()
-  turtle.select(slot)
+--  turtle.select(slot)
 end
 
 function mine21(size)
   for i=1,size do
     kamfuel(16,7)
     
+    turtle.select(2)
     if turtle.getItemCount(16) < 2 then
       -- hook for future expansion
     end
     for i=1,7 do
       if turtle.detect() then
-        kamdig()
+        kamdig(16)
       end
 
       while turtle.forward() ~= true do
@@ -78,15 +82,19 @@ function mine21(size)
 
       if turtle.detectDown() then
         if i == 7 then
+          turtle.select(16)
           if turtle.compareDown() ~= true then
+            turtle.select(2)
             kamdigDown(16)
           end
         else
+          turtle.select(2)
           kamdigDown(16)
         end
       end
     end
 
+    turtle.select(16)
     if (turtle.compareDown() ~= true) then
       turtle.placeDown()
     end
