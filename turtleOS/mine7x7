@@ -30,12 +30,46 @@ function fward(steps)
   end
 end
 
+function kamdig(slot)
+  turtle.select(2)
+  if turtle.compare() then
+    turtle.drop()
+  end
+  --[[ optionally exlude something else
+  turtle.select(3)
+  if turtle.compare() then
+    turtle.drop()
+  end
+  ]]
+  turtle.dig()
+  turtle.select(slot)
+end
+
+function kamdigdown(slot)
+  turtle.select(2)
+  if turtle.compareDown() then
+    turtle.drop()
+  end
+  --[[ optionally exlude something else
+  turtle.select(3)
+  if turtle.compare() then
+    turtle.drop()
+  end
+  ]]
+  turtle.digDown()
+  turtle.select(slot)
+end
+
 function mine21(size)
   for i=1,size do
     kamfuel(16,7)
+    
+    if turtle.getItemCount(16) < 2 then
+      -- hook for future expansion
+    end
     for i=1,7 do
       if turtle.detect() then
-        turtle.dig()
+        kamdig()
       end
 
       while turtle.forward() ~= true do
@@ -45,10 +79,10 @@ function mine21(size)
       if turtle.detectDown() then
         if i == 7 then
           if turtle.compareDown() ~= true then
-            turtle.digDown()
+            kamdigDown(16)
           end
         else
-          turtle.digDown()
+          kamdigDown(16)
         end
       end
     end
