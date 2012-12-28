@@ -1,0 +1,16 @@
+while true do
+    if turtle.getFuelLevel() < 1 then turtle.refuel() end
+    local event, p1, p2, p3, p4, p5 = os.pullEvent()
+    if event == "key" then
+        if p1 == 200 then turtle.forward()
+        elseif p1 == 205 then turtle.turnRight()
+        elseif p1 == 208 then turtle.back()
+        elseif p1 == 203 then turtle.turnLeft()
+        elseif p1 == 57  then turtle.up() -- space
+        elseif p1 == 42  then turtle.down() -- left shift
+        elseif p1 == 32  then turtle.dig() -- d
+        elseif p1 == 46  then turtle.digDown() -- c
+        elseif p1 == 18  then turtle.digUp() -- e
+        end
+    end
+end

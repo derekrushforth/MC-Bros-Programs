@@ -1,0 +1,180 @@
+function refuel(slot)
+    turtle.select(slot)
+    while turtle.getFuelLevel() < 120 do
+        turtle.refuel()
+        print("Can go ", turtle.getFuelLevel(), " blocks.")
+        if turtle.getFuelLevel() < 120 then
+            print("Out of fuel...")
+            while turtle.getItemCount(slot) == 0 do
+                os.sleep(1)
+            end
+        end
+    end
+
+end
+
+function plant(sap_slot, bone_slot)
+    print("Sapplings left: ", turtle.getItemCount(sap_slot))
+    if turtle.getItemCount(sap_slot) < 1 then
+        print("Out of saplings.")
+        return false
+    end
+
+    print("Bone mean left: ", turtle.getItemCount(bone_slot))
+    if turtle.getItemCount(bone_slot) < 1 then
+        print("Out of bone meal.")
+        return false
+    end
+
+    turtle.select(sap_slot)
+
+    turtle.place()
+    turtle.select(bone_slot)
+   
+    turtle.place()
+
+    return true
+end
+
+function logger(size)
+    turn = "left"
+    height = 0
+    if not turtle.detect() then
+        print("No tree to chop.") -- plant one!
+    else
+        turtle.dig()
+        turtle.forward()
+        
+        -- test to see which way to turn
+        turtle.turnRight()
+        if turtle.detect() then turn = "right" end
+        turtle.turnLeft()
+
+        while turtle.detectUp() do
+            turtle.digUp()
+            if turtle.detect() then
+                turtle.dig()
+            end
+            turtle.up()
+            height = height + 1
+        end
+        print("Height: ", height)
+        if size == 1 then
+            while height > 0 do
+                turtle.down()
+                height = height - 1
+            end
+            turtle.turnLeft()
+            turtle.turnLeft()
+            turtle.forward()
+        else
+    
+            if turn == "left" then 
+                turtle.turnLeft() 
+            else 
+                turtle.turnRight()
+            end
+            
+            while not turtle.forward() do
+                turtle.dig()
+            end
+    
+            -- turn back
+            if turn == "left" then
+                turtle.turnRight()
+            else
+                turtle.turnLeft()
+            end
+    
+            while turtle.detectDown() and height > 0 do
+                turtle.digDown()
+                if turtle.detect() then
+                    turtle.dig()
+                end
+                turtle.down()
+                height = height - 1
+            end
+        end
+
+    end
+end
+
+function drop_off(fuel_slot, sap_slot, bone_slot)
+    -- put wood in fuel slot
+    turtle.select(4)
+    turtle.transferTo(fuel_slot)
+    -- put stuff in the chest
+    for slot = 4, 16 do
+        turtle.select(slot)
+        turtle.drop()
+    end
+end
+
+
+function collect_sap(sap_slot)
+    turtle.forward()
+
+    turtle.turnLeft()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    
+    turtle.turnRight()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    
+    turtle.turnRight()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+
+    turtle.turnRight()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+    
+    turtle.turnRight()
+    turtle.forward()
+    turtle.suck()
+    turtle.forward()
+    turtle.suck()
+
+    turtle.turnRight()
+    turtle.back()
+end
+
+function main()
+    fuel_slot = 1
+    sap_slot  = 2
+    bone_slot = 3
+    
+    turtle.select(sap_slot)
+    while plant(sap_slot, bone_slot) do
+        refuel(fuel_slot)
+        --plant(sap_slot, bone_slot)
+        logger(1)
+        drop_off(fuel_slot, sap_slot, bone_slot)
+        turtle.turnLeft()
+        turtle.turnLeft()
+        collect_sap(sap_slot)
+    end
+end
+
+main()
