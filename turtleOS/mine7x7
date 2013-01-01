@@ -119,7 +119,7 @@ function makerows(rows,cols)
       local tmp = i%2
 
       kamfuel(16,7)
-      mine21(7)
+      fward(7)
 
       if tmp == 0 then
         turtle.turnLeft()
@@ -135,7 +135,7 @@ function makerows(rows,cols)
         turtle.turnLeft()
       end
     end
-    mine21(7)
+    fward(7)
     if rows%2 == 0 then
       turtle.turnLeft()
     else
@@ -150,7 +150,7 @@ function makecolumns(rows,cols)
       local tmp = i%2
 
       kamfuel(16,7)
-      mine21(7)
+      fward(7)
 
       if tmp == 1 then
         turtle.turnLeft()
@@ -166,7 +166,7 @@ function makecolumns(rows,cols)
         turtle.turnLeft()
       end
     end
-    mine21(7)
+    fward(7)
     if cols%2 == 1 then
       turtle.turnLeft()
     else
