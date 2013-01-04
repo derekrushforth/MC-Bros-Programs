@@ -18,19 +18,20 @@ function refuel(slot, max_height)
 
 end
 
-function plant(sap_slot, bone_slot)
+function plant(sap_slot, bone_slot, tree_width)
+    min = 1 + tree_width * tree_width
     print("Sapplings left: ", turtle.getItemCount(sap_slot))
     -- We stop at 2 because we never want the slot to be empty
-    if turtle.getItemCount(sap_slot) < 2 then
+    if turtle.getItemCount(sap_slot) < min then
         print("Out of saplings. Trying chest.")
         turtle.turnLeft()
         turtle.select(sap_slot)
         turtle.suck()
         turtle.turnRight()
-        if turtle.getItemCount(sap_slot) < 2 then
+        if turtle.getItemCount(sap_slot) < min then
             print("Couldn't find any in chest. Please fill me up...")
             n = 0 
-            while turtle.getItemCount(sap_slot) < 2 do
+            while turtle.getItemCount(sap_slot) < min do
                 os.sleep(1)
                 n = n + 1
                 -- Only wait 5 minutes
@@ -41,15 +42,15 @@ function plant(sap_slot, bone_slot)
     end
 
     print("Bone mean left: ", turtle.getItemCount(bone_slot))
-    if turtle.getItemCount(bone_slot) < 2 then
+    if turtle.getItemCount(bone_slot) < min then
         print("Out of bone meal. Trying chest.")
         turtle.turnRight()
         turtle.select(bone_slot)
         turtle.suck()
         turtle.turnLeft()
-        if turtle.getItemCount(bone_slot) < 2 then
+        if turtle.getItemCount(bone_slot) < min then
             print("Couldn't find any in chest. Please fill me up...")
-            while turtle.getItemCount(bone_slot) < 2 do
+            while turtle.getItemCount(bone_slot) < min do
                 os.sleep(1)
                 n = n + 1
                 -- Only wait 5 minutes
@@ -58,12 +59,31 @@ function plant(sap_slot, bone_slot)
             print("Bone meal detected. Continuing.")
         end
     end
+    
+    if tree_width == 2 then
+        turtle.select(sap_slot)
+        turtle.place()
+        turtle.forward()
+        turtle.place()
+        turtle.turnLeft()
+        turtle.place()
+        turtle.forward()
+        turtle.turnLeft()
+        turtle.place()
+        turtle.turnLeft()
+        turtle.forward()
+        turtle.turnLeft()
+        turtle.back()
 
-    turtle.select(sap_slot)
-    turtle.place()
-
-    turtle.select(bone_slot)
-    turtle.place()
+        turtle.select(bone_slot)
+        turtle.place()
+    else
+        turtle.select(sap_slot)
+        turtle.place()
+    
+        turtle.select(bone_slot)
+        turtle.place()
+    end
 
     return true
 end
@@ -126,6 +146,20 @@ function logger(size)
                 turtle.down()
                 height = height - 1
             end
+            turtle.dig()
+
+            if turn == "left" then
+                turtle.turnRight()
+                turtle.forward()
+                turtle.turnRight()
+                turtle.forward()
+            else
+                turtle.turnLeft()
+                turtle.forward()
+                turtle.turnLeft()
+                turtle.forward()
+            end
+
         end
 
     end
@@ -184,7 +218,7 @@ function collect_sap(sap_slot)
     turtle.turnLeft()
 end
 
-function main()
+function main(tree_width)
     fuel_slot  = 1
     sap_slot   = 2
     bone_slot  = 3
@@ -192,10 +226,10 @@ function main()
     
     turtle.select(sap_slot)
     n = 1
-    while plant(sap_slot, bone_slot) do
+    while plant(sap_slot, bone_slot, tree_width) do
         refuel(fuel_slot, max_height)
         --plant(sap_slot, bone_slot)
-        logger(1)
+        logger(tree_width)
         drop_off(fuel_slot, sap_slot, bone_slot)
         turtle.turnLeft()
         turtle.turnLeft()
@@ -207,4 +241,12 @@ function main()
     end
 end
 
-main()
+local args = {...}
+local tree_width = 1
+if args ~= nil and args[1] ~= nil then
+    tree_width = tonumber(args[1])
+end
+
+print("Tree width: ", tree_width)
+--logger(tree_width)
+main(tree_width)
