@@ -90,18 +90,19 @@ function plant(sap_slot, bone_slot, tree_width)
 
         turtle.select(bone_slot)
         turtle.place()
-	turtle.select(fuel_slot)
-	n = 0
-	while not turtle.compare() do
-	   turtle.select(bone_slot)
-	   turtle.place()
-	   turtle.select(fuel_slot)
-	   n = n + 1
-	   if n > 60 * 5 then
-	   	print("The tree is not growing!")
-		return false
-	   end
-	end
+--	turtle.select(fuel_slot)
+--	n = 0
+--	while not turtle.compare() do
+--	   turtle.select(bone_slot)
+--	   turtle.place()
+--	   turtle.select(fuel_slot)
+--	   n = n + 1
+--	   os.sleep(1)
+--	   if n > 60 then
+--	   	print("The tree is not growing!")
+--		return false
+--	   end
+--	end
     else
         turtle.select(sap_slot)
         turtle.place()
@@ -135,6 +136,7 @@ function logger(size)
             turtle.up()
             height = height + 1
         end
+	turtle.dig()
         print("Height: ", height)
         if size == 1 then
             while height > 0 do
