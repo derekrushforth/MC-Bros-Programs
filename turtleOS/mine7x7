@@ -4,7 +4,7 @@ mine7x7
 This program will mine a grid with
 a 7x7 spacing.
 
-Place a Torches in slot 16.
+Place torches in slot 16.
 
 Place fuel in slot 1.
 
@@ -75,6 +75,10 @@ function mine21(size)
       if turtle.detect() then
         --kamdig(16)
         turtle.dig()
+      end
+
+      if turtle.detectUp() then
+        turtle.digUp()
       end
 
       while turtle.forward() ~= true do
